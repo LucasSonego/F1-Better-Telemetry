@@ -12,6 +12,9 @@ let playerCarId = null;
 server.on("connection", socket => {
   console.log("New client connected");
 
+  socket.on("lapData", data => {
+    server.sockets.emit("lapData", data);
+  });
   socket.on("playerCarId", data => {
     server.sockets.emit("playerCarId", data);
   });
@@ -25,6 +28,20 @@ F1Telemetry.on(PACKETS.participants, data => {
     playerCarId = data.m_header.m_playerCarIndex;
     client.emit("playerCarId", data.m_header.m_playerCarIndex);
     console.log("Player car id: " + playerCarId);
+  }
+});
+
+let currentLap, currentSector;
+F1Telemetry.on(PACKETS.lapData, data => {
+  if (playerCarId !== null) {
+    if (
+      data.m_lapData[playerCarId].m_currentLapNum !== currentLap ||
+      data.m_lapData[playerCarId].m_sector !== currentSector
+    ) {
+      client.emit("lapData", data.m_lapData[playerCarId]);
+      currentLap = data.m_lapData[playerCarId].m_currentLapNum;
+      currentSector = data.m_lapData[playerCarId].m_sector;
+    }
   }
 });
 });
