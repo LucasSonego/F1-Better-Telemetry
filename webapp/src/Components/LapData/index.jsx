@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "./styles";
+import { MdClearAll } from "react-icons/md";
 
 // import testLapData from "../../exampleData/LapData";
 
@@ -62,6 +63,9 @@ function LapData({ telemetry }) {
 
   return (
     <Container>
+      <button className="clear" onClick={() => setLaps([])}>
+        <MdClearAll /> Clear
+      </button>
       {laps &&
         laps
           .slice(0)
