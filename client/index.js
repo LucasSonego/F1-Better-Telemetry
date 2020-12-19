@@ -18,6 +18,12 @@ server.on("connection", socket => {
   socket.on("playerCarId", data => {
     server.sockets.emit("playerCarId", data);
   });
+  socket.on("carStatus", data => {
+    server.sockets.emit("carStatus", data);
+  });
+  socket.on("carTelemetry", data => {
+    server.sockets.emit("carTelemetry", data);
+  });
 });
 
 const io = require("socket.io-client");
@@ -44,6 +50,17 @@ F1Telemetry.on(PACKETS.lapData, data => {
     }
   }
 });
+
+F1Telemetry.on(PACKETS.carStatus, data => {
+  if (playerCarId !== null) {
+    client.emit("carStatus", data.m_carStatusData[playerCarId]);
+  }
+});
+
+F1Telemetry.on(PACKETS.carTelemetry, data => {
+  if (playerCarId !== null) {
+    client.emit("carTelemetry", data.m_carTelemetryData[playerCarId]);
+  }
 });
 
 F1Telemetry.start();
