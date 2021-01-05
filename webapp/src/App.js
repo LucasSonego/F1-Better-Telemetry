@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
 
 import Fonts from "./fonts";
 import { Container } from "./styles";
 import LapData from "./Components/LapData";
+import CarData from "./Components/CarData";
 
 const telemetry = io.connect("http://localhost:4000");
 
 function App() {
+  let [carStatus, setCarStatus] = useState();
+  let [carTelemetry, setCarTelemetry] = useState();
+
+  useEffect(() => {
+    telemetry.on("carStatus", data => {
+      setCarStatus(data);
+    });
+    telemetry.on("carTelemetry", data => {
+      setCarTelemetry(data);
+    });
+  }, []);
+
   return (
     <Container>
       <Fonts />
       <LapData telemetry={telemetry} />
+      <CarData carStatus={carStatus} carTelemetry={carTelemetry} />
     </Container>
   );
 }
