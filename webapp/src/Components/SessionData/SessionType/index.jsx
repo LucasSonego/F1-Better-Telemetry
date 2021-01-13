@@ -9,11 +9,9 @@ function SessionType({ session }) {
         if (identifier < 4) {
           return `FP${identifier}`;
         } else return "Practice";
-      } else if (identifier < 9) {
-        if (identifier < 9) {
-          return `Q${identifier - 4}`;
-        } else return "Qualifying";
-      }
+      } else if (identifier < 8) {
+        return `Q${identifier - 4}`;
+      } else return "Qualifying";
     }
   }
 
