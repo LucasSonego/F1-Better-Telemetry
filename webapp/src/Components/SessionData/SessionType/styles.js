@@ -11,5 +11,6 @@ export const Container = styled.div`
   h2 {
     font-weight: 500;
     margin: 0;
+    margin-bottom: 15px;
   }
 `;
