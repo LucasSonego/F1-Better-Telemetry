@@ -55,7 +55,12 @@ function Weather({ session }) {
           </>
         );
       default:
-        return <WiCloudRefresh />;
+        return (
+          <>
+            <WiCloudRefresh />
+            <span>no data...</span>
+          </>
+        );
     }
   }
 
