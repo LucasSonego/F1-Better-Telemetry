@@ -8,12 +8,8 @@ import Weather from "./Weather";
 function SessionData({ session }) {
   return (
     <Container>
-      {session !== undefined && (
-        <>
-          <SessionType session={session} />
-          <Weather session={session} />
-        </>
-      )}
+      <SessionType session={session} />
+      <Weather session={session} />
     </Container>
   );
 }

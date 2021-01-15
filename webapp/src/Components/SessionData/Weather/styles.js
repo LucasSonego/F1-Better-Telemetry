@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  min-width: 200px;
   .current-weather {
     display: flex;
     align-items: center;
