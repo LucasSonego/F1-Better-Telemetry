@@ -24,6 +24,9 @@ server.on("connection", socket => {
   socket.on("carTelemetry", data => {
     server.sockets.emit("carTelemetry", data);
   });
+  socket.on("session", data => {
+    server.sockets.emit("session", data);
+  });
 });
 
 const io = require("socket.io-client");
@@ -62,6 +65,8 @@ F1Telemetry.on(PACKETS.carTelemetry, data => {
     client.emit("carTelemetry", data.m_carTelemetryData[playerCarId]);
   }
 });
+
+F1Telemetry.on(PACKETS.session, data => client.emit("session", data));
 
 F1Telemetry.start();
 
