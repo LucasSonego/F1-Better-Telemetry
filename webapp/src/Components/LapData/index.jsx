@@ -19,14 +19,17 @@ function LapData({ telemetry }) {
           lap => lap.m_currentLapNum === data.m_currentLapNum
         );
         if (sameLap >= 0) {
-          if (laps.length > 1) {
-            updatedLaps[[...laps].length - 2] = {
-              ...updatedLaps[[...laps].length - 2],
+          if (laps[sameLap + 1]) {
+            updatedLaps.splice(sameLap + 1, laps.length - 1);
+          }
+          if (updatedLaps.length > 1) {
+            updatedLaps[[...updatedLaps].length - 2] = {
+              ...updatedLaps[[...updatedLaps].length - 2],
               m_lapTime: data.m_lastLapTime,
               m_sector3TimeInMS:
                 data.m_lastLapTime * 1000 -
-                (updatedLaps[[...laps].length - 2].m_sector1TimeInMS +
-                  updatedLaps[[...laps].length - 2].m_sector2TimeInMS),
+                (updatedLaps[[...updatedLaps].length - 2].m_sector1TimeInMS +
+                  updatedLaps[[...updatedLaps].length - 2].m_sector2TimeInMS),
             };
           }
           updatedLaps[sameLap] = data;
