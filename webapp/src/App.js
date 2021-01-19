@@ -29,7 +29,10 @@ function App() {
   return (
     <Container>
       <Fonts />
-      <LapData telemetry={telemetry} />
+      <LapData
+        telemetry={telemetry}
+        tyreCompound={carStatus?.m_tyreVisualCompound}
+      />
       <CarData carStatus={carStatus} carTelemetry={carTelemetry} />
       <SessionData session={session} />
     </Container>
