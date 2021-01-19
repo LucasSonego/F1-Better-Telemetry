@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   padding: 20px;
@@ -119,4 +119,43 @@ export const Container = styled.div`
       }
     }
   }
+`;
+
+export const Tyre = styled.div`
+  height: 16px;
+  width: 16px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 2px solid #7777;
+
+  span {
+    color: inherit;
+    font-size: 12px;
+  }
+
+  ${props =>
+    props.compound && props.compound === "wet"
+      ? css`
+          border-color: #2980b9;
+        `
+      : props.compound === "intermediate"
+      ? css`
+          border-color: #27ae60;
+        `
+      : props.compound === "soft"
+      ? css`
+          border-color: #e74c3c;
+        `
+      : props.compound === "medium"
+      ? css`
+          border-color: #f1c40f;
+        `
+      : props.compound === "hard" &&
+        css`
+          border-color: #ecf0f1;
+        `}
 `;

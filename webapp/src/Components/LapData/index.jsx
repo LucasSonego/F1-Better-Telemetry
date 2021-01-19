@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "./styles";
 import { MdClearAll } from "react-icons/md";
 
+import { Container, Tyre } from "./styles";
 // import testLapData from "../../exampleData/LapData";
 
-function LapData({ telemetry }) {
+function LapData({ telemetry, tyreCompound }) {
   // const [laps, setLaps] = useState(testLapData);
   const [laps, setLaps] = useState();
 
@@ -32,7 +32,7 @@ function LapData({ telemetry }) {
                   updatedLaps[[...updatedLaps].length - 2].m_sector2TimeInMS),
             };
           }
-          updatedLaps[sameLap] = data;
+          updatedLaps[sameLap] = { ...data, m_tyreCompound: tyreCompound };
         } else {
           updatedLaps[[...laps].length - 1] = {
             ...updatedLaps[[...laps].length - 1],
@@ -41,15 +41,16 @@ function LapData({ telemetry }) {
               data.m_lastLapTime * 1000 -
               (updatedLaps[[...laps].length - 1].m_sector1TimeInMS +
                 updatedLaps[[...laps].length - 1].m_sector2TimeInMS),
+            m_tyreCompound: tyreCompound,
           };
-          updatedLaps.push(data);
+          updatedLaps.push({ ...data, m_tyreCompound: tyreCompound });
         }
       } else {
-        updatedLaps.push(data);
+        updatedLaps.push({ ...data, m_tyreCompound: tyreCompound });
       }
       setLaps(updatedLaps);
     });
-  }, [laps, telemetry]);
+  }, [laps, telemetry, tyreCompound]);
 
   function formattedTime(time) {
     let minutes = Math.floor(Math.floor(time / 60));
@@ -62,6 +63,54 @@ function LapData({ telemetry }) {
     }
 
     return `${minutes}:${remainingTime}`;
+  }
+
+  function getTyreCompound(compoundIdentifier) {
+    if (compoundIdentifier) {
+      switch (compoundIdentifier) {
+        case 7:
+          return (
+            <Tyre compound="intermediate">
+              <span>I</span>
+            </Tyre>
+          );
+        case 8:
+          return (
+            <Tyre compound="wet">
+              <span>W</span>
+            </Tyre>
+          );
+        case 16:
+          return (
+            <Tyre compound="soft">
+              <span>S</span>
+            </Tyre>
+          );
+        case 17:
+          return (
+            <Tyre compound="medium">
+              <span>M</span>
+            </Tyre>
+          );
+        case 18:
+          return (
+            <Tyre compound="hard">
+              <span>H</span>
+            </Tyre>
+          );
+        default:
+          return (
+            <Tyre>
+              <span>?</span>
+            </Tyre>
+          );
+      }
+    } else
+      return (
+        <Tyre>
+          <span>?</span>
+        </Tyre>
+      );
   }
 
   return (
@@ -112,6 +161,7 @@ function LapData({ telemetry }) {
                     )}
                   </span>
                 </div>
+                <span>{getTyreCompound(lap.m_tyreCompound)}</span>
               </div>
               <hr />
               <div className="sectors">
