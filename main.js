@@ -1,5 +1,5 @@
-const app = require("express")();
-const http = require("http").createServer(app);
+const express = require("express")();
+const http = require("http").createServer(express);
 const server = require("socket.io")(http);
 
 const { F1TelemetryClient, constants } = require("f1-telemetry-client");
@@ -71,3 +71,41 @@ F1Telemetry.on(PACKETS.session, data => client.emit("session", data));
 F1Telemetry.start();
 
 http.listen(4000);
+
+const electron = require("electron");
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const path = require("path");
+const isDev = require("electron-is-dev");
+
+let mainWindow;
+
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 650,
+    minHeight: 650,
+    minWidth: 1200,
+    frame: false,
+  });
+  mainWindow.loadURL(
+    isDev
+      ? "http://localhost:3000"
+      : `file://${path.join(__dirname, "./build/index.html")}`
+  );
+  mainWindow.on("closed", () => (mainWindow = null));
+}
+
+app.on("ready", createWindow);
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
+
+app.on("activate", () => {
+  if (mainWindow === null) {
+    createWindow();
+  }
+});
