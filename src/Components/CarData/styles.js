@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   .car {
     padding: 0 20px;
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

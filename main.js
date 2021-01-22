@@ -15,12 +15,18 @@ function createWindow() {
     minHeight: 650,
     minWidth: 1200,
     frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true,
+    },
+    icon: __dirname + "/icon.png",
   });
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
       : `file://${path.join(__dirname, "./build/index.html")}`
   );
+  // mainWindow.webContents.openDevTools();
   mainWindow.on("closed", () => (mainWindow = null));
 }
 

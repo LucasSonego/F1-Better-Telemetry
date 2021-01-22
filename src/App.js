@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 import Fonts from "./fonts";
-import { Container } from "./styles";
+import { Container, Content } from "./styles";
 import LapData from "./Components/LapData";
 import CarData from "./Components/CarData";
 import SessionData from "./Components/SessionData";
+import TitleBar from "./Components/TitleBar";
 
 const telemetry = io.connect("http://localhost:4000");
 
@@ -29,12 +30,15 @@ function App() {
   return (
     <Container>
       <Fonts />
-      <LapData
-        telemetry={telemetry}
-        tyreCompound={carStatus?.m_tyreVisualCompound}
-      />
-      <CarData carStatus={carStatus} carTelemetry={carTelemetry} />
-      <SessionData session={session} />
+      <TitleBar />
+      <Content>
+        <LapData
+          telemetry={telemetry}
+          tyreCompound={carStatus?.m_tyreVisualCompound}
+        />
+        <CarData carStatus={carStatus} carTelemetry={carTelemetry} />
+        <SessionData session={session} />
+      </Content>
     </Container>
   );
 }

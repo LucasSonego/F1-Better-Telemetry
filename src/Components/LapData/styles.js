@@ -9,8 +9,8 @@ export const Container = styled.div`
   grid-gap: 10px;
   grid-auto-rows: min-content;
   color: #fff;
-  height: 100vh;
-  max-height: 100vh;
+  height: 100%;
+  max-height: 100%;
   overflow-y: scroll;
 
   /* width */
