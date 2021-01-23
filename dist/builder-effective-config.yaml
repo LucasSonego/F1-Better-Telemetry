@@ -1,0 +1,16 @@
+directories:
+  output: dist
+  buildResources: build
+appId: f1-better-telemetry-by-lucassonego
+productName: F1 Better Telemetry
+copyright: 'Copyright © 2021 ${author}'
+mac:
+  category: public.app-category.utilities
+extends: null
+extraMetadata:
+  main: main.js
+files:
+  - filter:
+      - '**/*'
+      - build
+electronVersion: 11.2.0
