@@ -3,7 +3,7 @@ Live telemetry from Codemasters F1 game
 
 <img src="https://i.imgur.com/xFSqmRM.png" />
 
-## <a id="raw-url" href="https://github.com/LucasSonego/f1-better-telemetry/raw/master/dist/F1%20Better%20Telemetry%20Setup%201.0.0.exe">:arrow_down: Download</a>
+## <a id="raw-url" href="https://github.com/LucasSonego/F1-Better-Telemetry/releases">:arrow_down: Download</a>
 
 ### Users guide
 
